@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Chain</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Announcements -->
+    <div id="announcement-container"></div>
+
+    <!-- Lobby Overlay -->
+    <div id="login-overlay" class="overlay">
+        
+        <div id="setup-phase">
+            <h1 class="win-title" style="font-size: 40px; margin-bottom: 30px;">Game Setup</h1>
+            
+            <div class="setup-group">
+                <h3>1. How many players?</h3>
+                <button class="setup-btn" onclick="setSetupPlayers(2)">2</button>
+                <button class="setup-btn" onclick="setSetupPlayers(3)">3</button>
+                <button class="setup-btn" onclick="setSetupPlayers(4)">4</button>
+                <p id="sel-players" class="sel-text">Selected: None</p>
+            </div>
+            
+            <div class="setup-group">
+                <h3>2. Grid Size (7 to 12)</h3>
+                <input type="number" id="setup-grid" class="setup-input" value="10" min="7" max="12">
+            </div>
+            
+            <div class="setup-group">
+                <h3>3. Target Score</h3>
+                <input type="number" id="setup-target" class="setup-input" value="50" min="10">
+            </div>
+            
+            <div class="setup-group">
+                <h3>4. Turn Timer (seconds)</h3>
+                <input type="number" id="setup-timer" class="setup-input" value="30" min="0" max="120">
+                <p class="sel-text">Set to 0 for no timer</p>
+            </div>
+            
+            <button class="seat-btn success" style="margin-top:20px;" onclick="submitSetup()">Start Game</button>
+            <p id="setup-msg" style="color: #ccc; margin-top: 20px;">Waiting for first player to setup...</p>
+        </div>
+
+        <div id="join-phase" class="hidden">
+            <h1 style="margin-bottom: 20px;">Select Your Seat</h1>
+            <div style="margin-bottom: 20px;">
+                <input type="text" id="player-name-input" class="setup-input" placeholder="Enter your name" maxlength="15" style="width:250px;">
+            </div>
+            <div id="join-buttons">
+                <!-- Dynamically populated by JS based on total players -->
+            </div>
+            <p id="login-msg" style="color: #ff4d4d; margin-top: 20px;"></p>
+        </div>
+    </div>
+
+    <!-- Winner Overlay -->
+    <div id="winner-overlay" class="overlay hidden">
+        <h1 class="win-title">GAME OVER!</h1>
+        <h2 id="winner-text" style="font-size: 40px;">Player X Wins!</h2>
+        <button class="seat-btn success" onclick="resetGame()" style="margin-top: 30px;">Play Again</button>
+    </div>
+
+    <!-- Main Game UI -->
+    <div id="game-ui" class="glass-panel" style="width: 95%; max-width: 700px;">
+        <div id="stats-bar">
+            <div class="target-display">Target: <span id="display-target">50</span></div>
+            <div class="score p1-score" id="score-box-1"><span id="name-1">P1</span>: <span id="s1">0</span></div>
+            <div class="score p2-score" id="score-box-2"><span id="name-2">P2</span>: <span id="s2">0</span></div>
+            <div class="score p3-score hidden" id="score-box-3"><span id="name-3">P3</span>: <span id="s3">0</span></div>
+            <div class="score p4-score hidden" id="score-box-4"><span id="name-4">P4</span>: <span id="s4">0</span></div>
+        </div>
+
+        <div id="turn-indicator">Waiting...</div>
+        <div id="timer-display" class="hidden">⏱️ <span id="timer-seconds">--</span>s</div>
+        <div id="my-role" class="role-text"></div>
+
+        <div class="grid" id="grid"></div>
+
+        <div class="controls" style="margin-top: 20px;">
+            <p>Select letters on the board to form a word, then submit!</p>
+            <button class="seat-btn" id="select-word-btn" onclick="toggleSelectionMode()">Select Word</button>
+            <button class="seat-btn success" onclick="submitWord()">Submit Word</button>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 20px; align-items: baseline;">
+            <button onclick="logout()" class="subtle-btn">Leave Seat</button>
+            <button onclick="resetGame()" class="danger-btn">Reset Game</button>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

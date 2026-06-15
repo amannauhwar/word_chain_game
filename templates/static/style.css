@@ -1,0 +1,29 @@
+body { font-family: Verdana, sans-serif; text-align: center; background: #fafafa; }
+
+/* Grid */
+.grid { display: grid; grid-template-columns: repeat(10, 45px); gap: 3px; justify-content: center; margin: 20px auto; }
+.cell { width: 45px; height: 45px; font-size: 24px; text-align: center; border: 2px solid #ccc; text-transform: uppercase; border-radius: 5px; }
+.cell:focus { border-color: blue; outline: none; }
+.cell:disabled { background-color: #ddd; color: #555; border-color: #999; font-weight: bold; }
+
+/* Dashboard */
+#stats-bar { display: flex; justify-content: center; align-items: center; gap: 30px; background: white; padding: 10px; border-bottom: 2px solid #ddd; }
+.p1-score { color: blue; font-size: 24px; font-weight: bold; }
+.p2-score { color: red; font-size: 24px; font-weight: bold; }
+#turn-indicator { font-weight: bold; margin: 15px; font-size: 22px; padding: 10px; border-radius: 5px; display: inline-block; }
+.p1-turn { background-color: #e6f2ff; color: blue; border: 2px solid blue; }
+.p2-turn { background-color: #ffe6e6; color: red; border: 2px solid red; }
+
+/* Overlays */
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; }
+.hidden { display: none !important; }
+.win-title { font-size: 60px; color: gold; }
+
+/* Buttons */
+.seat-btn { padding: 20px 40px; font-size: 24px; margin: 10px; cursor: pointer; }
+.seat-btn:disabled { background: #555; color: #888; cursor: not-allowed; }
+.seat-btn.success { background: green; color: white; }
+.danger-btn { margin-top: 30px; color: red; cursor: pointer; }
+.subtle-btn { margin-top: 30px; color: gray; font-size: 12px; cursor: pointer; }
+.goal-input { width: 60px; font-size: 18px; text-align: center; padding: 5px; }
+.role-text { color: gray; margin-bottom: 10px; }
